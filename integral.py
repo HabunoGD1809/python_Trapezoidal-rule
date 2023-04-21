@@ -26,6 +26,15 @@ while True:
         # Verificar si la función tiene una singularidad en x=0
         if sympy.limit(f, x, 0) == sympy.oo or sympy.limit(f, x, 0) == -sympy.oo:
             raise Exception("Error: la función tiene una singularidad en x=0. Introduce otra función que se pueda evaluar.")
+        
+        # Verificar si la función tiene una discontinuidad removible en x=0
+        if sympy.limit(f, x, 0, dir='+') == sympy.limit(f, x, 0, dir='-'):
+            g = sympy.Limit(f, x, 0).doit()
+            print("La función original tiene una discontinuidad removible en x=0.")
+            print("La función sin la discontinuidad removible es:", g)
+        
+        else:
+            print("La función no tiene una discontinuidad removible en x=0.")
 
         a = float(input("Introduce el límite inferior: ").strip())
         b = float(input("Introduce el límite superior: ").strip())
